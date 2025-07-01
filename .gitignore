@@ -1,0 +1,366 @@
+# === 钉钉K8s运维机器人项目 .gitignore ===
+
+# =============================================================================
+# Python 相关文件
+# =============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# Python virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# =============================================================================
+# 项目配置和敏感信息
+# =============================================================================
+
+# 环境配置文件
+.env
+.env.local
+.env.production
+.env.staging
+config.env
+!config.env.example
+
+# 运行时配置文件
+config.json
+config.yaml
+config.yml
+
+# API密钥和凭证
+**/secrets/
+**/credentials/
+*.key
+*.pem
+*.p12
+*.pfx
+
+# 钉钉机器人配置
+dingtalk_config.json
+bot_secrets.json
+
+# Kubernetes配置
+kubeconfig
+*.kubeconfig
+k8s-config/
+
+# =============================================================================
+# 日志和临时文件
+# =============================================================================
+
+# 日志文件
+logs/
+*.log
+log/
+log.txt
+debug.log
+error.log
+access.log
+app.log
+
+# 临时文件
+tmp/
+temp/
+.tmp/
+.temp/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# 备份文件
+*.bak
+*.backup
+*.orig
+
+# Cache directories
+.cache/
+cache/
+__pycache__/
+
+# =============================================================================
+# 操作系统生成的文件
+# =============================================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+
+# =============================================================================
+# IDE 和编辑器配置
+# =============================================================================
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.vimrc.local
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# =============================================================================
+# 开发工具和依赖
+# =============================================================================
+
+# npm (如果将来添加前端构建工具)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+.yarn-integrity
+
+# Dependency directories
+jspm_packages/
+
+# =============================================================================
+# 数据库和数据文件
+# =============================================================================
+
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# 数据文件
+*.csv
+*.json.backup
+data/
+datasets/
+
+# =============================================================================
+# 静态文件和资源
+# =============================================================================
+
+# 上传的文件
+uploads/
+upload/
+media/
+static_files/
+
+# 用户生成的内容
+user_content/
+user_uploads/
+
+# 图片缓存
+thumbnail/
+thumbnails/
+image_cache/
+
+# =============================================================================
+# 测试和CI/CD
+# =============================================================================
+
+# Test outputs
+test_results/
+test_reports/
+.coverage
+coverage/
+.nyc_output
+
+# CI/CD artifacts
+.github/
+!.github/workflows/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# =============================================================================
+# Docker 相关
+# =============================================================================
+
+# Docker
+Dockerfile.local
+docker-compose.override.yml
+.dockerignore
+
+# =============================================================================
+# 项目特定的忽略
+# =============================================================================
+
+# MCP工具缓存
+mcp_cache/
+tool_cache/
+*.mcp.cache
+
+# LLM处理缓存
+llm_cache/
+chat_history/
+conversation_logs/
+
+# 系统监控数据
+metrics/
+monitoring/
+*.metrics
+
+# K8s临时文件
+k8s_temp/
+kubectl_temp/
+pod_logs/
+
+# 本地开发服务器pid文件
+*.pid
+server.pid
+app.pid
+
+# 性能分析文件
+*.prof
+profile_*
+
+# 错误转储
+core.*
+*.dump
+
+# 本地测试数据
+test_data/
+mock_data/
+sample_data/
+
+# =============================================================================
+# 安全相关
+# =============================================================================
+
+# 证书文件
+*.crt
+*.cert
+*.ca
+ssl/
+tls/
+
+# 私有配置
+private/
+confidential/
+secret/
+
+# 安全扫描报告
+security_reports/
+vulnerability_scan/
+
+# =============================================================================
+# 特殊标记（保留这些文件）
+# =============================================================================
+
+# 保留示例配置文件
+!*example*
+!*template*
+!*sample*
+
+# 保留重要的配置模板
+!config.env.example
+!docker-compose.example.yml
+
+# 保留README和文档
+!README*
+!CHANGELOG*
+!LICENSE*
+!CONTRIBUTING*
+
+# 忽略Cursor规则
+.cursor/ 

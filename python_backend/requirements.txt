@@ -1,0 +1,31 @@
+# 核心框架
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.4.2
+
+# MCP 和 AI 相关
+openai==1.3.5
+httpx==0.25.2
+asyncio==3.4.3
+
+# Kubernetes 客户端
+kubernetes==28.1.0
+
+# 钉钉机器人
+requests==2.31.0
+cryptography==41.0.7
+
+# 数据库和缓存
+redis==5.0.1
+sqlalchemy==2.0.23
+alembic==1.12.1
+
+# 工具库
+python-dotenv==1.0.0
+loguru==0.7.2
+tenacity==8.2.3
+
+# 开发工具
+pytest==7.4.3
+black==23.11.0
+mypy==1.7.1 

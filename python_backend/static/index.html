@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>钉钉K8s运维机器人 - 配置中心</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部导航 -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-robot"></i>
+                    <h1>钉钉K8s运维机器人</h1>
+                </div>
+                <div class="status-indicator" id="systemStatus">
+                    <span class="status-dot"></span>
+                    <span class="status-text">正在检查...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <main class="main-content">
+            <!-- 侧边栏导航 -->
+            <nav class="sidebar">
+                <ul class="nav-menu">
+                    <li class="nav-item active" data-tab="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>仪表板</span>
+                    </li>
+                    <li class="nav-item" data-tab="llm-config">
+                        <i class="fas fa-brain"></i>
+                        <span>LLM配置</span>
+                    </li>
+                    <li class="nav-item" data-tab="mcp-config">
+                        <i class="fas fa-tools"></i>
+                        <span>MCP工具</span>
+                    </li>
+                    <li class="nav-item" data-tab="dingtalk-config">
+                        <i class="fas fa-comments"></i>
+                        <span>钉钉配置</span>
+                    </li>
+                    <li class="nav-item" data-tab="test-tools">
+                        <i class="fas fa-flask"></i>
+                        <span>工具测试</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- 内容面板 -->
+            <div class="content-panel">
+                <!-- 仪表板 -->
+                <div id="dashboard" class="tab-content active">
+                    <div class="page-header">
+                        <h2><i class="fas fa-tachometer-alt"></i> 系统仪表板</h2>
+                        <button class="btn btn-primary" onclick="refreshStatus()">
+                            <i class="fas fa-sync-alt"></i> 刷新状态
+                        </button>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <!-- 系统状态卡片 -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-server"></i> 系统状态</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="status-grid" id="systemStatusGrid">
+                                    <div class="status-item">
+                                        <span class="status-label">MCP客户端</span>
+                                        <span class="status-value" id="mcpStatus">检查中...</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">LLM处理器</span>
+                                        <span class="status-value" id="llmStatus">检查中...</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">钉钉机器人</span>
+                                        <span class="status-value" id="dingtalkStatus">检查中...</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">可用工具</span>
+                                        <span class="status-value" id="toolsCount">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 快速测试卡片 -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-play"></i> 快速测试</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="quick-test">
+                                    <div class="form-group">
+                                        <label>测试消息:</label>
+                                        <input type="text" id="testMessage" placeholder="输入要测试的消息..." class="form-control">
+                                    </div>
+                                    <button class="btn btn-primary" onclick="quickTest()">
+                                        <i class="fas fa-paper-plane"></i> 发送测试
+                                    </button>
+                                </div>
+                                <div class="test-result" id="testResult"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LLM配置 -->
+                <div id="llm-config" class="tab-content">
+                    <div class="page-header">
+                        <h2><i class="fas fa-brain"></i> LLM配置</h2>
+                        <button class="btn btn-success" onclick="saveLLMConfig()">
+                            <i class="fas fa-save"></i> 保存配置
+                        </button>
+                    </div>
+
+                    <div class="config-form">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="llmProvider">提供商:</label>
+                                    <select id="llmProvider" class="form-control">
+                                        <option value="openai">OpenAI</option>
+                                        <option value="azure">Azure OpenAI</option>
+                                        <option value="zhipu">智谱AI</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="llmModel">模型:</label>
+                                    <input type="text" id="llmModel" class="form-control" placeholder="gpt-3.5-turbo">
+                                </div>
+                                <div class="form-group">
+                                    <label for="llmApiKey">API Key:</label>
+                                    <input type="password" id="llmApiKey" class="form-control" placeholder="输入API Key">
+                                </div>
+                                <div class="form-group">
+                                    <label for="llmTemperature">Temperature:</label>
+                                    <input type="range" id="llmTemperature" min="0" max="1" step="0.1" value="0.7" class="form-control">
+                                    <span class="range-value" id="temperatureValue">0.7</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCP工具配置 -->
+                <div id="mcp-config" class="tab-content">
+                    <div class="page-header">
+                        <h2><i class="fas fa-tools"></i> MCP工具配置</h2>
+                    </div>
+                    <div class="tools-list" id="toolsList">
+                        加载中...
+                    </div>
+                </div>
+
+                <!-- 钉钉配置 -->
+                <div id="dingtalk-config" class="tab-content">
+                    <div class="page-header">
+                        <h2><i class="fas fa-comments"></i> 钉钉机器人配置</h2>
+                    </div>
+                    <div class="config-form">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="dingtalkWebhook">Webhook URL:</label>
+                                    <input type="url" id="dingtalkWebhook" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dingtalkSecret">Secret:</label>
+                                    <input type="password" id="dingtalkSecret" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 工具测试 -->
+                <div id="test-tools" class="tab-content">
+                    <div class="page-header">
+                        <h2><i class="fas fa-flask"></i> 工具测试</h2>
+                    </div>
+                    <div class="test-interface">
+                        <div class="form-group">
+                            <label for="testToolSelect">选择工具:</label>
+                            <select id="testToolSelect" class="form-control">
+                                <option value="">请选择工具...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="testToolParams">参数:</label>
+                            <textarea id="testToolParams" class="form-control" rows="4" placeholder='{"namespace": "default"}'></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="testTool()">执行测试</button>
+                        <div class="test-result" id="toolTestResult"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html> 
