@@ -406,7 +406,7 @@ async def startup_event():
         
         # 初始化MCP客户端
         mcp_client = MCPClient()
-        await mcp_client.initialize()
+        await mcp_client.connect()
         logger.info("MCP客户端初始化成功")
         
         # 初始化LLM处理器
