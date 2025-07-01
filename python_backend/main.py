@@ -365,11 +365,16 @@ async def reinitialize_llm_processor(llm_config: Dict[str, Any]):
     """重新初始化LLM处理器"""
     global llm_processor
     try:
-        llm_processor = EnhancedLLMProcessor(
-            api_key=llm_config.get("api_key"),
+        config = LLMConfig(
+            provider=llm_config.get("provider", "openai"),
             model=llm_config.get("model", "gpt-3.5-turbo"),
-            mcp_client=mcp_client
+            api_key=llm_config.get("api_key", ""),
+            base_url=llm_config.get("base_url"),
+            temperature=llm_config.get("temperature", 0.7),
+            max_tokens=llm_config.get("max_tokens", 2000)
         )
+
+        llm_processor = EnhancedLLMProcessor(config, mcp_client)
         logger.info("LLM处理器重新初始化成功")
     except Exception as e:
         logger.error(f"LLM处理器重新初始化失败: {e}")
