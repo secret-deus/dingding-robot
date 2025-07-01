@@ -225,11 +225,15 @@ async def test_fastapi_endpoints():
         import httpx
         
         # 这里只是示例，实际测试需要启动服务
+        # FastAPI 路由前缀统一为 /api
         endpoints = [
             "/",
-            "/status", 
-            "/tools",
-            "/shortcuts"
+            "/api/status",
+            "/api/tools",
+            "/api/tools/test",
+            "/api/config/{config_type}",
+            "/api/test",
+            "/dingtalk/webhook"
         ]
         
         logger.info(f"📋 API端点列表: {endpoints}")
