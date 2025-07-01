@@ -226,10 +226,12 @@ async def test_fastapi_endpoints():
         
         # 这里只是示例，实际测试需要启动服务
         endpoints = [
-            "/",
-            "/status", 
-            "/tools",
-            "/shortcuts"
+            "/api/status",
+            "/api/tools",
+            "/api/tools/test",
+            "/api/config/{config_type}",
+            "/api/test",
+            "/dingtalk/webhook"
         ]
         
         logger.info(f"📋 API端点列表: {endpoints}")
