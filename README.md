@@ -227,6 +227,10 @@ src/
 - [MCP协议规范](https://modelcontextprotocol.io/)
 - [Kubernetes API参考](https://kubernetes.io/docs/reference/)
 
+## 📄 License
+
+本项目基于 MIT License 发布，详见 [LICENSE](LICENSE) 文件。
+
 ## 📞 支持
 
 如有问题，请：
