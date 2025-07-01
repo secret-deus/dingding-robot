@@ -4,6 +4,7 @@ MCP 客户端 - Python版本
 """
 
 import asyncio
+import random
 import json
 import time
 import hashlib
@@ -316,7 +317,7 @@ class MCPClient:
     async def _simulate_tool_execution(self, call: MCPToolCall) -> Any:
         """模拟工具执行"""
         # 添加随机延迟以模拟真实执行
-        await asyncio.sleep(0.2 + 0.3 * asyncio.random.random())
+        await asyncio.sleep(0.2 + 0.3 * random.random())
         
         if call.name == "k8s-get-pods":
             return {
